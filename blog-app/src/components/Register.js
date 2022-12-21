@@ -13,7 +13,7 @@ export function Register() {
     e.preventDefault();
 
     console.log(email + " " + password);
-    await register(firstName, lastName, email, password);
+    await register(firstName, lastName, username, email, password);
   };
 
   return (

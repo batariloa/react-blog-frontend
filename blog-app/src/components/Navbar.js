@@ -6,6 +6,8 @@ export function Navbar() {
   const { logout } = useLogout();
   const { user } = useAuthContext();
 
+  console.log("NAVBAAAR USER", user);
+
   const handleLogoutClick = async () => {
     await logout();
   };
@@ -29,7 +31,7 @@ export function Navbar() {
         {user && (
           <div class="navbar-nav">
             <span class="nav-item nav-link active" href="#">
-              Hello, <span class="sr-only">{user.username}</span>
+              Hello, {user.username}
             </span>
 
             <a class="nav-item nav-link " onClick={handleLogoutClick}>

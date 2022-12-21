@@ -5,13 +5,21 @@ import { useAuthContext } from "../hooks/useAuthContext";
 import { useState } from "react";
 import { BlogPost } from "./BlogPost";
 import "./BlogPost.css";
+import { useParams } from "react-router-dom";
 export function Blog() {
+  const { username } = useParams("");
+
   const { user } = useAuthContext();
   const [data, setData] = useState(null);
 
   useEffect(() => {
+    let url = "http://localhost:5153/post/";
+    if (username) url = "http://localhost:5153/post/" + username;
+
+    console.log("URL IS ", url);
+
     const callApi = async () => {
-      const response = await fetch("http://localhost:5153/post/", {
+      const response = await fetch(url, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -31,8 +39,11 @@ export function Blog() {
 
   return (
     <div className="container">
-      <div class="row row-cols-1 row-cols-md-3 g-4">
-        {data && data.map((u) => <BlogPost post={u}></BlogPost>)}
+      <div class="row row-cols-1 row-cols-md-3 g-2">
+        {data &&
+          data.map((u) => (
+            <BlogPost post={u} data={data} setData={setData}></BlogPost>
+          ))}
       </div>
     </div>
   );

@@ -1,11 +1,13 @@
 import React from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { useLogin } from "../hooks/useLogin";
 
 import "./Login.css";
 
 export function Login() {
+  const navigate = useNavigate();
   const { login, error } = useLogin();
 
   const [email, setEmail] = useState("");
@@ -16,10 +18,13 @@ export function Login() {
     console.log(email, password);
 
     await login(email, password);
+
+    console.log("error ", error);
+    if (error === null) navigate("/blog");
   };
   return (
     <div className="Auth-form-container">
-      <form className="Auth-form" onSubmit={handleSubmit}>
+      <form className="Auth-form" onSubmit={handleSubmit} autoComplete="on">
         <div className="Auth-form-content">
           <h3 className="Auth-form-title">Sign In</h3>
           <div className="form-group mt-3">

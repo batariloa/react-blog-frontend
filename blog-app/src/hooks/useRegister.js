@@ -6,7 +6,7 @@ export const useRegister = () => {
 
   const { dispatch } = useAuthContext();
 
-  const register = async (Firstname, Lastname, Email, Password) => {
+  const register = async (Firstname, Lastname, Username, Email, Password) => {
     setError(null);
 
     const response = await fetch("http://localhost:5153/auth/register", {
@@ -18,6 +18,7 @@ export const useRegister = () => {
       body: JSON.stringify({
         Firstname,
         Lastname,
+        Username,
         Email,
         Password,
         ConfirmPassword: Password,

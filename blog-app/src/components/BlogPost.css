@@ -1,6 +1,9 @@
 .card{
 
+
     margin-top:100px;
+    padding:10px;
+    
 }
 
 .container{
@@ -9,6 +12,7 @@
 
 .form-row{
     margin-top: 20px;
+    
 }
 .row {
 
@@ -18,10 +22,33 @@
 
 .btn {
     margin-top: 20px;
+    
 }
 
 form{
 width: 600px;
 margin: 0 auto;
  margin-top: 100px;
+}
+
+label{
+    margin-bottom: 10px;
+}
+
+.buttonContainer {
+
+    display: flex;
+    margin: 0 auto;
+    text-align: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+.btn-outline-danger{
+    margin-right: 30px;
+    width: 7em;
+}
+
+.btn-outline-success{
+    width: 7em;
+    
 }
