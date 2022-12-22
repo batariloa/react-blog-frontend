@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import { useCreatePost } from "../hooks/useCreatePost";
+import { useNavigate } from "react-router-dom";
 import "./BlogPost.css";
+import "./CreateBlogPost.css";
 export function CreateBlogPost() {
   const { submitPost, error } = useCreatePost();
+
+  const navigate = useNavigate();
 
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
@@ -10,6 +14,8 @@ export function CreateBlogPost() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await submitPost({ title, text });
+
+    if (!error) navigate("/blog");
   };
 
   return (
@@ -34,14 +40,14 @@ export function CreateBlogPost() {
           <textarea
             class="form-control"
             id="exampleFormControlTextarea1"
-            rows="10"
+            rows="15"
             onChange={(e) => {
               setText(e.target.value);
             }}
             value={text}
           ></textarea>
         </div>
-        <button class="btn btn-primary" type="submit">
+        <button class="btn btn-primary mt-4 " type="submit">
           Submit post
         </button>
       </form>

@@ -23,10 +23,6 @@ export const useLogin = () => {
 
     const json = await response.json();
 
-    console.log(" is it ok", response.ok);
-
-    console.log("response");
-
     if (!response.ok) {
       setError(json.title);
     }

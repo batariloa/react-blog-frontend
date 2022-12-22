@@ -6,8 +6,16 @@
     
 }
 
+
+.card-title{
+    overflow: hidden;
+    display: block;
+    white-space: nowrap;
+}
+
 .container{
     margin-top:100px;
+    width: 100%;
 }
 
 .form-row{
@@ -20,15 +28,12 @@
     width:80%;
 }
 
-.btn {
-    margin-top: 20px;
-    
-}
 
-form{
-width: 600px;
-margin: 0 auto;
- margin-top: 100px;
+.blog-container{
+
+    margin: 0 auto;
+
+    width: 70%;
 }
 
 label{
@@ -43,12 +48,8 @@ label{
     justify-content: center;
     margin-bottom: 20px;
 }
-.btn-outline-danger{
-    margin-right: 30px;
-    width: 7em;
-}
 
-.btn-outline-success{
-    width: 7em;
-    
+.post{
+
+    width: auto;
 }

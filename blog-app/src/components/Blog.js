@@ -6,6 +6,7 @@ import { useState } from "react";
 import { BlogPost } from "./BlogPost";
 import "./BlogPost.css";
 import { useParams } from "react-router-dom";
+
 export function Blog() {
   const { username } = useParams("");
 
@@ -38,8 +39,8 @@ export function Blog() {
   }, [user]);
 
   return (
-    <div className="container">
-      <div class="row row-cols-1 row-cols-md-3 g-2">
+    <div className="blog-container">
+      <div class="row row-cols-md-3 g-2 ">
         {data &&
           data.map((u) => (
             <BlogPost post={u} data={data} setData={setData}></BlogPost>
