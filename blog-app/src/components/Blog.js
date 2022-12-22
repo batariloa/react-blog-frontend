@@ -36,7 +36,7 @@ export function Blog() {
       console.log("data", data);
     };
     if (user) callApi();
-  }, [user]);
+  }, [user, username]);
 
   return (
     <div className="blog-container">

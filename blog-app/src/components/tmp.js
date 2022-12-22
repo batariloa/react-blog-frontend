@@ -3,14 +3,11 @@ import { useAuthContext } from "../hooks/useAuthContext";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { InputSuggestions } from "react-input-suggestions";
-import { useNavigate } from "react-router-dom";
 
-import "./Navbar.scss";
 export function Navbar() {
   const { logout } = useLogout();
   const { user } = useAuthContext();
 
-  const navigate = useNavigate();
   const [query, setQuery] = useState("");
   const [searchData, setSearchData] = useState([]);
 
@@ -100,7 +97,7 @@ export function Navbar() {
           )}
           <form class="d-flex">
             <InputSuggestions
-              className="form-control me-2"
+              class="form-control me-2"
               type="search"
               placeholder="Search"
               aria-label="Search"
@@ -108,9 +105,7 @@ export function Navbar() {
                 console.log(e.target.value);
                 setQuery(e.target.value);
               }}
-              suggestions={searchData.map((x) => (
-                <span onClick={() => navigate("/blog/" + x)}>{x}</span>
-              ))}
+              suggestions={searchData}
             />
             <button class="btn btn-outline-success" type="submit">
               Search

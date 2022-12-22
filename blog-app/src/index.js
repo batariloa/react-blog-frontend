@@ -8,6 +8,8 @@ import { AuthContextProvider } from "./context/AuthContext";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "font-awesome/css/font-awesome.min.css";
+import "react-bootstrap-typeahead/css/Typeahead.css";
+import "react-autocomplete-input/dist/bundle.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
