@@ -7,13 +7,13 @@ export const createAndEditPostJsx = (
   error
 ) => {
   return (
-    <div class="container">
+    <div class="container w-50">
       <form onSubmit={handleSubmit}>
         <div class="form-row">
           <label for="exampleFormControlInput1">Title</label>
           <input
             type="text"
-            class="form-control form-control-lg"
+            class="form-control form-control-lg bg-dark text-white "
             id="exampleFormControlInput1"
             placeholder="Post title"
             onChange={(e) => {
@@ -26,7 +26,7 @@ export const createAndEditPostJsx = (
         <div class="form-row">
           <label for="exampleFormControlTextarea1">Post Text</label>
           <textarea
-            class="form-control"
+            class="form-control bg-dark text-white"
             id="exampleFormControlTextarea1"
             rows="15"
             onChange={(e) => {
