@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { InputSuggestions } from "react-input-suggestions";
 import { useNavigate } from "react-router-dom";
 
-import "./Navbar.scss";
+import "./Navbar.css";
 export function Navbar() {
   const { logout } = useLogout();
   const { user } = useAuthContext();
@@ -30,17 +30,14 @@ export function Navbar() {
     };
 
     if (query !== "") fetchUsers();
-
-    console.log(searchData);
   }, [query]);
-
-  console.log("NAVBAAAR USER", user);
 
   const handleLogoutClick = async () => {
     await logout();
   };
   return (
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
+      {" "}
       <div class="container-fluid">
         <button
           class="navbar-toggler"
@@ -54,9 +51,7 @@ export function Navbar() {
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-          <a class="navbar-brand" href="#">
-            Blogster
-          </a>
+          <a class="navbar-brand">Blogster</a>
           {user && (
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
@@ -71,15 +66,14 @@ export function Navbar() {
               </li>
 
               <li class="nav-item">
-                <a
+                <Link
                   class="nav-link "
-                  href="#"
                   tabindex="-1"
                   aria-disabled="true"
                   onClick={handleLogoutClick}
                 >
                   Logout
-                </a>
+                </Link>
               </li>
             </ul>
           )}
@@ -100,19 +94,18 @@ export function Navbar() {
           )}
           <form class="d-flex">
             <InputSuggestions
-              className="form-control me-2"
+              className="form-control me-2 edit mt-1 mb-1"
               type="search"
               placeholder="Search"
               aria-label="Search"
               onChange={(e) => {
-                console.log(e.target.value);
                 setQuery(e.target.value);
               }}
               suggestions={searchData.map((x) => (
                 <span onClick={() => navigate("/blog/" + x)}>{x}</span>
               ))}
             />
-            <button class="btn btn-outline-success" type="submit">
+            <button class="btn btn-outline-success mt-1 mb-1" type="submit">
               Search
             </button>
           </form>

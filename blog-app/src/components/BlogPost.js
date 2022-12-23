@@ -3,6 +3,7 @@ import "./BlogPost.css";
 import { useDeletePost } from "../hooks/useDeletPost";
 import { useRepost } from "../hooks/useRepost";
 import { useAuthContext } from "../hooks/useAuthContext";
+import { useNavigate } from "react-router-dom";
 export function BlogPost({ post, data, setData }) {
   const { user } = useAuthContext();
 
@@ -10,13 +11,15 @@ export function BlogPost({ post, data, setData }) {
 
   const { repost, errorRepost } = useRepost();
 
+  const navigate = useNavigate();
+
   console.log("length ", post.text.length);
 
-  post.title = post.title.slice(0, 40);
-  if (post.text.length > 50) {
-    post.text = post.text.slice(0, 150);
-    post.text += "...";
-  }
+  const displayTitle = post.title.slice(0, 40);
+
+  let displayText = post.text.slice(0, 150);
+
+  if (displayText.length >= 50) displayText += "...";
 
   const handleDeletePost = async () => {
     if (window.confirm("Delete post?")) {
@@ -31,13 +34,17 @@ export function BlogPost({ post, data, setData }) {
     }
   };
 
+  const handleEditPost = async () => {
+    navigate("/edit", { state: { post } });
+  };
+
   return (
     <div class="col-md">
-      <div class="post card h-100   ">
+      <div class="post bg-dark  card h-100 text-white  ">
         <div class="card-body ">
-          <h5 class="card-title">{post.title}</h5>
+          <h5 class="card-title">{displayTitle}</h5>
           <hr></hr>
-          <p class="card-text">{post.text}</p>
+          <p class="card-text">{displayText}</p>
         </div>
         {post.repost && (
           <div>
@@ -66,9 +73,7 @@ export function BlogPost({ post, data, setData }) {
               <button
                 type="button"
                 class=" btn btn-outline-success"
-                onClick={() => {
-                  handleDeletePost(post.id);
-                }}
+                onClick={handleEditPost}
               >
                 <i class="bi-pen-fill" style={{ fontSize: 25 }}></i>
               </button>

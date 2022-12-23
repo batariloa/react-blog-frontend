@@ -6,9 +6,12 @@ import { useState } from "react";
 import { BlogPost } from "./BlogPost";
 import "./BlogPost.css";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export function Blog() {
   const { username } = useParams("");
+
+  const navigate = useNavigate();
 
   const { user } = useAuthContext();
   const [data, setData] = useState(null);
@@ -16,8 +19,6 @@ export function Blog() {
   useEffect(() => {
     let url = "http://localhost:5153/post/";
     if (username) url = "http://localhost:5153/post/" + username;
-
-    console.log("URL IS ", url);
 
     const callApi = async () => {
       const response = await fetch(url, {
@@ -33,9 +34,12 @@ export function Blog() {
 
       if (response.ok) setData(data);
 
-      console.log("data", data);
+      if (!response.ok) {
+        if (response.status === 401) navigate("/login");
+      }
     };
     if (user) callApi();
+    else navigate("/login");
   }, [user, username]);
 
   return (

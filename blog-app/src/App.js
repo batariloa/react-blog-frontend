@@ -6,6 +6,7 @@ import { Blog } from "./components/Blog";
 import { Navbar } from "./components/Navbar";
 import { CreateBlogPost } from "./components/CreateBlogPost";
 import { useAuthContext } from "./hooks/useAuthContext";
+import { EditBlogPost } from "./components/EditBlogPost";
 
 function App() {
   const { user } = useAuthContext();
@@ -27,6 +28,8 @@ function App() {
         <Route path="/blog" element={user ? <Blog /> : <Login />} />
 
         <Route path="/new" element={user ? <CreateBlogPost /> : <Login />} />
+        <Route path="/edit" element={user ? <EditBlogPost /> : <Login />} />
+
         <Route path="/register" element={<Register />}></Route>
       </Routes>
     </BrowserRouter>

@@ -1,0 +1,38 @@
+
+
+ div input { 
+
+    background-color: transparent;
+    border: 0;
+    outline: 0;
+
+}
+
+.edit ul {
+    float: left;
+    margin-left: -40px;
+    text-align: center;
+}
+.edit li {
+
+    display: block;
+    background-color: gray;
+    color: white;
+    padding: 0px;
+    
+}
+
+.edit li a{
+    padding-left: 10px;
+    color: white;
+    
+}
+
+.edit li :hover {
+
+    background-color: black;
+}
+
+
+
+

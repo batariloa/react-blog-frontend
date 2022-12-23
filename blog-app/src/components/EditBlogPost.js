@@ -1,20 +1,24 @@
 import React, { useState } from "react";
-import { useCreatePost } from "../hooks/useCreatePost";
+import { useEditPost } from "../hooks/useEditPost";
 import { useNavigate } from "react-router-dom";
 import { createAndEditPostJsx } from "../jsx/createAndEditPost";
+import { useLocation } from "react-router-dom";
 import "./BlogPost.css";
 import "./CreateBlogPost.css";
-export function CreateBlogPost() {
-  const { submitPost, error } = useCreatePost();
+export function EditBlogPost() {
+  const { editPost, error } = useEditPost();
 
+  const { state } = useLocation();
   const navigate = useNavigate();
 
-  const [title, setTitle] = useState("");
-  const [text, setText] = useState("");
+  const postId = state.post.id;
+  const [title, setTitle] = useState(state.post.title);
+  const [text, setText] = useState(state.post.text);
+  console.log("TITLE", title);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await submitPost({ title, text });
+    await editPost(postId, title, text);
 
     if (!error) navigate("/blog");
   };
