@@ -1,41 +1,41 @@
 import { useState } from "react";
 import { useAuthContext } from "./useAuthContext";
-
+import axiosClient from "../components/http/axios";
+import { url } from "../global/variables";
 export const useLogin = () => {
-  const [error, setError] = useState(null);
+  const [error, setError] = useState();
+  const [isLoading, setIsLoading] = useState();
 
   const { dispatch } = useAuthContext();
 
   const login = async (Email, Password) => {
+    setIsLoading(true);
     setError(null);
 
-    const response = await fetch("http://localhost:5153/auth/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify({
-        Email,
-        Password,
-      }),
-    });
+    await axiosClient
+      .post(
+        url + "/auth/login",
+        {
+          Email,
+          Password,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        }
+      )
+      .then((res) => {
+        dispatch({ type: "LOGIN", payload: res.data });
+        localStorage.setItem("user", JSON.stringify(res.data));
+      })
+      .catch((err) => {
+        setError("Incorrect credentials.");
+      });
 
-    const json = await response.json();
-
-    if (!response.ok) {
-      setError(json.title);
-    }
-
-    if (response.ok) {
-      //save user to local storage
-      localStorage.setItem("user", JSON.stringify(json));
-      //update the auth context
-      dispatch({ type: "LOGIN", payload: json });
-
-      console.log("stringify", JSON.stringify(json));
-    }
+    setIsLoading(false);
   };
 
-  return { login, error };
+  return { login, error, isLoading };
 };

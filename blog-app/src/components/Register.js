@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRegister } from "../hooks/useRegister";
+import { useNavigate } from "react-router-dom";
 export function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -7,14 +8,18 @@ export function Register() {
   const [lastName, setLastName] = useState("");
   const [username, setUsername] = useState("");
 
-  const { register, error } = useRegister();
+  const navigate = useNavigate();
+  const { register, error, isLoading } = useRegister();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log(email + " " + password);
     await register(firstName, lastName, username, email, password);
   };
+
+  useEffect(() => {
+    if (error === null && !isLoading) navigate("/login");
+  }, [error, isLoading, navigate]);
 
   return (
     <div className="Auth-form-container">
@@ -89,9 +94,6 @@ export function Register() {
           <div className="d-grid gap-2 mt-3">
             <button className="btn btn-primary">SignUp</button>
           </div>
-          <p className="text-center mt-2">
-            Forgot <a href="#">password?</a>
-          </p>
         </div>
         {error && <div className="error">{error}</div>}
       </form>

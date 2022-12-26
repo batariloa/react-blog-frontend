@@ -1,36 +1,35 @@
 import { useAuthContext } from "./useAuthContext";
 import { useState } from "react";
-import { url } from "../global/variables";
 import axiosClient from "../components/http/axios";
+import { url } from "../global/variables";
 
-export const useEditPost = () => {
+export const useDeletePost = () => {
   const [error, setError] = useState();
+  const { user } = useAuthContext();
   const [isLoading, setIsLoading] = useState();
 
-  const { user } = useAuthContext();
-
-  const editPost = async (id, title, text) => {
+  const deletePost = async (id) => {
     setIsLoading(true);
     setError(null);
+    console.log("USER TOKEn", user.token);
+
     axiosClient
-      .put(
+      .delete(
         url + "/post/" + id,
-        {
-          Title: title,
-          Text: text,
-        },
+
         {
           headers: {
             Authorization: `Bearer ` + user.token,
           },
         }
       )
-      .catch(() => {
-        setError("An error occured.");
+
+      .catch((error) => {
+        setError(error);
       });
 
     setIsLoading(false);
   };
 
-  return { editPost, error, isLoading };
+  return { deletePost, error, isLoading };
 };

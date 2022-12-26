@@ -1,25 +1,25 @@
-import React from "react";
-import "./BlogPost.css";
-import { useDeletePost } from "../hooks/useDeletPost";
-import { useRepost } from "../hooks/useRepost";
+import React, { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../hooks/useAuthContext";
-import { useNavigate } from "react-router-dom";
+import { useDeletePost } from "../hooks/useDeletePost";
+import { useRepost } from "../hooks/useRepost";
+import "./BlogPost.css";
 export function BlogPost({ post, data, setData }) {
   const { user } = useAuthContext();
 
-  const { deletePost, errorDelete } = useDeletePost();
+  const {
+    deletePost,
+    error: errorDelete,
+    isLoading: deleteIsLoading,
+  } = useDeletePost();
 
-  const { repost, errorRepost } = useRepost();
+  const { repost, error: erroRepost, isLoading: repostIsLoading } = useRepost();
 
   const navigate = useNavigate();
-
-  console.log("length ", post.text.length);
 
   const displayTitle = post.title.slice(0, 40);
 
   let displayText = post.text.slice(0, 150);
-
-  if (displayText.length >= 50) displayText += "...";
 
   const handleDeletePost = async () => {
     if (window.confirm("Delete post?")) {
@@ -38,13 +38,27 @@ export function BlogPost({ post, data, setData }) {
     navigate("/edit", { state: { post } });
   };
 
+  useEffect(() => {
+    if (erroRepost !== null) alert("An error occured.");
+  }, [erroRepost, repostIsLoading]);
+
   return (
     <div class="col-md">
       <div class="post bg-dark  card h-100 text-white  ">
         <div class="card-body ">
           <h5 class="card-title">{displayTitle}</h5>
           <hr></hr>
-          <p class="card-text">{displayText}</p>
+          <p class="card-text">
+            {displayText}{" "}
+            {displayText.length >= 50 ? (
+              <Link to={"/post"} state={{ post }}>
+                {" "}
+                ...view more
+              </Link>
+            ) : (
+              ""
+            )}{" "}
+          </p>
         </div>
         {post.repost && (
           <div>

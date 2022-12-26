@@ -1,31 +1,35 @@
 import { useState } from "react";
 import { useAuthContext } from "./useAuthContext";
+import axiosClient from "../components/http/axios";
+import { url } from "../global/variables";
 
 export const useRepost = () => {
   const { user } = useAuthContext();
 
   const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const repost = async (id) => {
-    const response = fetch("http://localhost:5153/post/repost/" + id, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: "Bearer " + user.token,
-      },
-    });
+    setIsLoading(true);
+    setError(null);
 
-    const json = await response.json();
+    await axiosClient
+      .post(
+        url + "/post/repost/" + id,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ` + user.token,
+          },
+        }
+      )
+      .catch((e) => {
+        setError("An error occured.");
+        console.log("An error occured while trying to repost.");
+      });
 
-    if (response.ok) {
-      console.log("Reposted", json);
-    }
-
-    if (!response.ok) {
-      setError(response.title);
-    }
+    setIsLoading(false);
   };
 
-  return { repost, error };
+  return { repost, error, isLoading };
 };

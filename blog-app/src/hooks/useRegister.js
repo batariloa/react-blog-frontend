@@ -1,48 +1,41 @@
 import { useState } from "react";
 import { useAuthContext } from "./useAuthContext";
+import axiosClient from "../components/http/axios";
+import { url } from "../global/variables";
 
 export const useRegister = () => {
-  const [error, setError] = useState(null);
-
-  const { dispatch } = useAuthContext();
+  const [error, setError] = useState();
+  const [isLoading, setIsLoading] = useState();
 
   const register = async (Firstname, Lastname, Username, Email, Password) => {
+    setIsLoading(true);
     setError(null);
 
-    const response = await fetch("http://localhost:5153/auth/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify({
-        Firstname,
-        Lastname,
-        Username,
-        Email,
-        Password,
-        ConfirmPassword: Password,
-      }),
-    });
+    await axiosClient
+      .post(
+        url + "/auth/register",
+        {
+          Firstname,
+          Lastname,
+          Username,
+          Email,
+          Password,
+          ConfirmPassword: Password,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        }
+      )
+      .catch((err) => {
+        console.log("lemme get message", err);
+        setError(err.response.data);
+      });
 
-    const json = await response.json();
-
-    console.log(" is it ok", response.ok);
-
-    if (!response.ok) {
-      console.log("JSON ERROR", json);
-      setError(json.title);
-    }
-
-    if (response.ok) {
-      // save user to localstorage
-      localStorage.setItem("user", JSON.stringify(json));
-
-      console.log(json);
-      //update auth context
-      dispatch({ type: "LOGIN", payload: json });
-    }
+    setIsLoading(false);
   };
 
-  return { register, error };
+  return { register, error, isLoading };
 };

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -8,20 +8,21 @@ import "./Login.css";
 
 export function Login() {
   const navigate = useNavigate();
-  const { login, error } = useLogin();
+  const { login, error, isLoading } = useLogin();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(email, password);
 
     await login(email, password);
-
-    console.log("error ", error);
-    if (error === null) navigate("/blog");
   };
+
+  useEffect(() => {
+    if (error === null) navigate("/blog");
+  }, [error, isLoading, navigate]);
+
   return (
     <div className="Auth-form-container">
       <form className="Auth-form" onSubmit={handleSubmit} autoComplete="on">
@@ -54,12 +55,9 @@ export function Login() {
           <div className="d-grid gap-2 mt-3">
             <button className="btn btn-primary">Submit</button>
           </div>
-          <p className="forgot-password text-right mt-2">
-            Forgot <a href="#">password?</a>
-          </p>
         </div>
-        {error && <div className="error">{error}</div>}
       </form>
+      {error && <span>{error}</span>}
     </div>
   );
 }
