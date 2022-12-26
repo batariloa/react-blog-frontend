@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useState } from "react";
 import { BlogPost } from "./BlogPost";
-import "./BlogPost.css";
+import "./css/BlogPost.css";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
@@ -40,7 +40,7 @@ export function Blog() {
     };
     if (user) callApi();
     else navigate("/login");
-  }, [user, username]);
+  }, [user, username, navigate]);
 
   return (
     <div className="blog-container">

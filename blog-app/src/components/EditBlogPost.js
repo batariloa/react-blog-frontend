@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { useEditPost } from "../hooks/useEditPost";
 import { useNavigate } from "react-router-dom";
-import { createAndEditPostJsx } from "../jsx/createAndEditPost";
+import { createAndEditPostJsx } from "./jsx/createAndEditPost";
 import { useLocation } from "react-router-dom";
-import "./BlogPost.css";
-import "./CreateBlogPost.css";
+import "./css/BlogPost.css";
+import "./css/CreateBlogPost.css";
 
 export function EditBlogPost() {
   const { editPost, error, isLoading } = useEditPost();
@@ -15,6 +15,8 @@ export function EditBlogPost() {
   const postId = state.post.id;
   const [title, setTitle] = useState(state.post.title);
   const [text, setText] = useState(state.post.text);
+
+  const header = "Edit post";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,6 +33,7 @@ export function EditBlogPost() {
     setTitle,
     text,
     setText,
-    error
+    error,
+    header
   );
 }

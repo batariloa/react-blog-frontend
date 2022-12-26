@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { useAuthContext } from "./useAuthContext";
-import axiosClient from "../components/http/axios";
+import axiosClient from "../http/axios";
 import { url } from "../global/variables";
 
 export const useRegister = () => {
@@ -30,8 +29,8 @@ export const useRegister = () => {
         }
       )
       .catch((err) => {
-        console.log("lemme get message", err);
-        setError(err.response.data);
+        if (err.response.data.title) setError(err.response.data.title);
+        else if (err.response.data) setError(err.response.data);
       });
 
     setIsLoading(false);

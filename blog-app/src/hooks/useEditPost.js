@@ -1,18 +1,18 @@
 import { useAuthContext } from "./useAuthContext";
 import { useState } from "react";
 import { url } from "../global/variables";
-import axiosClient from "../components/http/axios";
+import axiosClient from "../http/axios";
 
 export const useEditPost = () => {
   const [error, setError] = useState();
-  const [isLoading, setIsLoading] = useState();
+  const [isLoading, setIsLoading] = useState(true);
 
   const { user } = useAuthContext();
 
   const editPost = async (id, title, text) => {
     setIsLoading(true);
     setError(null);
-    axiosClient
+    await axiosClient
       .put(
         url + "/post/" + id,
         {
@@ -26,7 +26,7 @@ export const useEditPost = () => {
         }
       )
       .catch(() => {
-        setError("An error occured.");
+        setError("Please fill all fields.");
       });
 
     setIsLoading(false);

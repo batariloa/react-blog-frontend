@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { useLogin } from "../hooks/useLogin";
 
-import "./Login.css";
+import "./css/Login.css";
 
 export function Login() {
   const navigate = useNavigate();
@@ -57,7 +57,10 @@ export function Login() {
           </div>
         </div>
       </form>
-      {error && <span>{error}</span>}
+      <div className="mt-2">
+        Don't have an account? <Link to="/logiin">Register</Link>
+      </div>
+      {error && <span className="error">{error}</span>}
     </div>
   );
 }

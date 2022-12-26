@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useAuthContext } from "./useAuthContext";
-import axiosClient from "../components/http/axios";
+import axiosClient from "../http/axios";
 import { url } from "../global/variables";
 
 export const useRepost = () => {

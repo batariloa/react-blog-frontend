@@ -5,3 +5,8 @@ html {
     min-height: 100%;
   }
   
+.error {
+
+  color:red;
+  margin-top: 5px;
+}

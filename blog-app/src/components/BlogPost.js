@@ -3,15 +3,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useDeletePost } from "../hooks/useDeletePost";
 import { useRepost } from "../hooks/useRepost";
-import "./BlogPost.css";
+import "./css/BlogPost.css";
 export function BlogPost({ post, data, setData }) {
   const { user } = useAuthContext();
 
-  const {
-    deletePost,
-    error: errorDelete,
-    isLoading: deleteIsLoading,
-  } = useDeletePost();
+  const { deletePost, error: errorDelete } = useDeletePost();
 
   const { repost, error: erroRepost, isLoading: repostIsLoading } = useRepost();
 

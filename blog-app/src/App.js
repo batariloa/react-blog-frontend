@@ -8,7 +8,7 @@ import { CreateBlogPost } from "./components/CreateBlogPost";
 import { useAuthContext } from "./hooks/useAuthContext";
 import { EditBlogPost } from "./components/EditBlogPost";
 import { DetailedBlogPost } from "./components/DetailedBlogPost";
-import { setupInterceptors } from "./components/http/axios";
+import { setupInterceptors } from "./http/axios";
 
 function App() {
   const { user, dispatch } = useAuthContext();

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useRegister } from "../hooks/useRegister";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 export function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -27,7 +28,10 @@ export function Register() {
         <div className="Auth-form-content">
           <h3 className="Auth-form-title">Sign In</h3>
           <div className="text-center">
-            Already registered? <span className="link-primary">Sign In</span>
+            Already registered?{" "}
+            <Link to="/login" className="link-primary">
+              Sign In
+            </Link>
           </div>
           <div className="form-group mt-3">
             <label>Firstname</label>

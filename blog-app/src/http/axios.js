@@ -1,5 +1,5 @@
 import axios from "axios";
-import { url } from "../../global/variables";
+import { url } from "../global/variables";
 const axiosClient = axios.create({ baseURL: url });
 
 export const setupInterceptors = (dispatch) => {

@@ -1,6 +1,6 @@
 import { useAuthContext } from "./useAuthContext";
 import { useState } from "react";
-import axiosClient from "../components/http/axios";
+import axiosClient from "../http/axios";
 import { url } from "../global/variables";
 
 export const useDeletePost = () => {
@@ -11,7 +11,6 @@ export const useDeletePost = () => {
   const deletePost = async (id) => {
     setIsLoading(true);
     setError(null);
-    console.log("USER TOKEn", user.token);
 
     axiosClient
       .delete(

@@ -62,35 +62,42 @@ export function DetailedBlogPost() {
         <p class="card-text">{text}</p>
       </div>
       {post.ownerId === user.id && (
-        <div className="row mx-auto mb-2 text-left ">
-          <div class="col-md-4">
+        <div className="row  mb-2 mx-auto center-block text-center ">
+          <div class="col ">
             <button
               class="btn btn-outline-danger"
               onClick={() => {
                 handleDeletePost(post.id);
               }}
             >
-              <i class="col bi-trash-fill" style={{ fontSize: 25 }}></i>
+              <i class="bi-trash-fill" style={{ fontSize: 25 }}></i>
             </button>
-          </div>
 
-          {errorDelete && <p>{errorDelete}</p>}
-          <div class="col-md-4">
+            {errorDelete && <p>{errorDelete}</p>}
+
             <button
               type="button"
-              class=" btn btn-outline-success"
+              class=" btn btn-outline-success m-2"
               onClick={handleEditPost}
             >
               <i class="bi-pen-fill" style={{ fontSize: 25 }}></i>
             </button>
-          </div>
 
-          {errorDelete && <p>{errorDelete}</p>}
-          <div class="col-md-4">
+            {errorDelete && <p>{errorDelete}</p>}
+
             <button
               class="col-sm btn btn-outline-primary"
               onClick={handlePostRepost}
             >
+              <i class="bi-arrow-repeat" style={{ fontSize: 25 }}></i>
+            </button>
+          </div>
+        </div>
+      )}{" "}
+      {post.ownerId !== user.id && (
+        <div className="row mx-auto mb-2 text-center">
+          <div class="col">
+            <button class="col-sm btn btn-primary" onClick={handlePostRepost}>
               <i class="bi-arrow-repeat" style={{ fontSize: 25 }}></i>
             </button>
           </div>

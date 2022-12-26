@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { InputSuggestions } from "react-input-suggestions";
 import { useNavigate } from "react-router-dom";
 
-import "./Navbar.css";
+import "./css/Navbar.css";
 export function Navbar() {
   const { logout } = useLogout();
   const { user } = useAuthContext();
@@ -51,7 +51,9 @@ export function Navbar() {
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-          <a class="navbar-brand">Blogster</a>
+          <a href="/" className="navbar-brand">
+            Blogster
+          </a>
           {user && (
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">

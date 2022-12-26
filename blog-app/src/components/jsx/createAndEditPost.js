@@ -4,10 +4,12 @@ export const createAndEditPostJsx = (
   setTitle,
   text,
   setText,
-  error
+  error,
+  header
 ) => {
   return (
     <div class="container w-50">
+      <h2 className="mb-5">{header}</h2>
       <form onSubmit={handleSubmit}>
         <div class="form-row">
           <label for="exampleFormControlInput1">Title</label>
@@ -39,7 +41,7 @@ export const createAndEditPostJsx = (
           Submit post
         </button>
       </form>
-      {error && <div>{error}</div>}
+      {error && <div className="error">{error}</div>}
     </div>
   );
 };
