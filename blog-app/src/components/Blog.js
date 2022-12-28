@@ -9,32 +9,37 @@ import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { showBan } from "../util/showBan";
 import { useSuspendUser } from "../hooks/useSuspendUser";
-import { fetchData } from "../util/fetchBlogs";
+import { fetchBlog } from "../util/fetchBlogs";
 
 export function Blog() {
   const { user } = useAuthContext();
   let { username } = useParams("");
 
+  //if user views own blog, show username from Auth context
   if (!username) username = user.username;
 
   const navigate = useNavigate();
 
   const { suspend, error, isLoading } = useSuspendUser();
 
+  //load value once
   const showBanVal = showBan(user, username);
 
   const [data, setData] = useState(null);
 
+  //click 'Ban' button
   const handleBanUser = async () => {
     await suspend(username);
   };
 
+  //check for error while suspendng user
   useEffect(() => {
     if (!isLoading && error === null) navigate("/blog");
   }, [error, isLoading, navigate]);
 
+  //check for error while fetching
   useEffect(() => {
-    fetchData(user, username, setData, navigate);
+    fetchBlog(user, username, setData, navigate);
   }, [user, username, navigate]);
 
   return (

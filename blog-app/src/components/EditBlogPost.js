@@ -23,6 +23,7 @@ export function EditBlogPost() {
     await editPost(postId, title, text);
   };
 
+  //handle error while submiting changes
   useEffect(() => {
     if (error === null && !isLoading) navigate("/blog");
   }, [error, isLoading, navigate]);

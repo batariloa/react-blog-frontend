@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
 import { useLogin } from "../hooks/useLogin";
 
 import "./css/Login.css";
@@ -18,6 +17,7 @@ export function Login() {
     await login(email, password);
   };
 
+  //handle error in login request
   useEffect(() => {
     if (error === null) navigate("/blog");
   }, [error, isLoading, navigate]);

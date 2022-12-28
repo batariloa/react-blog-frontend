@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useDeletePost } from "../hooks/useDeletePost";
 import { useRepost } from "../hooks/useRepost";
-import { showEditDelete } from "../util/showEditDelete";
+import { showEdit, showDelete } from "../util/showEditDelete";
 import "./css/BlogPost.css";
 export function BlogPost({ post, data, setData }) {
   const { user } = useAuthContext();
@@ -66,8 +66,9 @@ export function BlogPost({ post, data, setData }) {
         <hr></hr>
 
         {/* If this is the users post, show delete and edit */}
-        {showEditDelete(post, user) && (
-          <div className="row mx-auto mb-2  justify-content-center ">
+
+        <div className="row mx-auto mb-2  justify-content-center ">
+          {showDelete(post, user) && (
             <div class="col-md-4">
               <button
                 class="btn btn-outline-danger"
@@ -78,42 +79,32 @@ export function BlogPost({ post, data, setData }) {
                 <i class="col bi-trash-fill" style={{ fontSize: 25 }}></i>
               </button>
             </div>
+          )}
 
-            {errorDelete && <p>{errorDelete}</p>}
+          {errorDelete && <p>{errorDelete}</p>}
 
-            {user.id === post.ownerId && (
-              <div class="col-md-4">
-                <button
-                  type="button"
-                  class=" btn btn-outline-success"
-                  onClick={handleEditPost}
-                >
-                  <i class="bi-pen-fill" style={{ fontSize: 25 }}></i>
-                </button>
-              </div>
-            )}
-
-            {errorDelete && <p>{errorDelete}</p>}
+          {showEdit(post, user) && (
             <div class="col-md-4">
               <button
-                class="col-sm btn btn-outline-primary"
-                onClick={handlePostRepost}
+                type="button"
+                class=" btn btn-outline-success"
+                onClick={handleEditPost}
               >
-                <i class="bi-arrow-repeat" style={{ fontSize: 25 }}></i>
+                <i class="bi-pen-fill" style={{ fontSize: 25 }}></i>
               </button>
             </div>
-          </div>
-        )}
+          )}
 
-        {!showEditDelete(post, user) && (
-          <div className="row mx-auto mb-2 text-center">
-            <div class="col">
-              <button class="col-sm btn btn-primary" onClick={handlePostRepost}>
-                <i class="bi-arrow-repeat" style={{ fontSize: 25 }}></i>
-              </button>
-            </div>
+          {errorDelete && <p>{errorDelete}</p>}
+          <div class="col-md-4">
+            <button
+              class="col-sm btn btn-outline-primary"
+              onClick={handlePostRepost}
+            >
+              <i class="bi-arrow-repeat" style={{ fontSize: 25 }}></i>
+            </button>
           </div>
-        )}
+        </div>
       </div>
     </div>
   );

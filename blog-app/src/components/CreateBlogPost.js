@@ -20,9 +20,11 @@ export function CreateBlogPost() {
     await submitPost({ title, text });
   };
 
+  //handle error while creating new post
   useEffect(() => {
     if (error === null && !isLoading) navigate("/blog");
   }, [error, isLoading, navigate]);
+
   return createAndEditPostJsx(
     handleSubmit,
     title,

@@ -1,7 +1,7 @@
 import { url } from "../global/variables";
 import axiosClient from "../http/axios";
 
-export const fetchData = (user, username, setData, navigate) => {
+export const fetchBlog = (user, username, setData, navigate) => {
   let urlFetch = url + "/post/";
   if (username) urlFetch = url + "/post/" + username;
 
