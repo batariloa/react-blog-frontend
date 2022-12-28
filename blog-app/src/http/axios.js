@@ -2,7 +2,7 @@ import axios from "axios";
 import { url } from "../global/variables";
 const axiosClient = axios.create({ baseURL: url });
 
-export const setupInterceptors = (dispatch) => {
+export const setupInterceptors = (dispatch, navigate) => {
   axiosClient.interceptors.response.use(
     function (config) {
       // Do something before request is sent
@@ -14,6 +14,7 @@ export const setupInterceptors = (dispatch) => {
         localStorage.removeItem("user");
         dispatch({ type: "LOGOUT" });
       }
+
       return Promise.reject(error);
     }
   );

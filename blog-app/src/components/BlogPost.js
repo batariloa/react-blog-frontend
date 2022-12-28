@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useDeletePost } from "../hooks/useDeletePost";
 import { useRepost } from "../hooks/useRepost";
+import { showEditDelete } from "../util/showEditDelete";
 import "./css/BlogPost.css";
 export function BlogPost({ post, data, setData }) {
   const { user } = useAuthContext();
@@ -65,8 +66,8 @@ export function BlogPost({ post, data, setData }) {
         <hr></hr>
 
         {/* If this is the users post, show delete and edit */}
-        {post.ownerId === user.id && (
-          <div className="row mx-auto mb-2 ">
+        {showEditDelete(post, user) && (
+          <div className="row mx-auto mb-2  justify-content-center ">
             <div class="col-md-4">
               <button
                 class="btn btn-outline-danger"
@@ -79,15 +80,18 @@ export function BlogPost({ post, data, setData }) {
             </div>
 
             {errorDelete && <p>{errorDelete}</p>}
-            <div class="col-md-4">
-              <button
-                type="button"
-                class=" btn btn-outline-success"
-                onClick={handleEditPost}
-              >
-                <i class="bi-pen-fill" style={{ fontSize: 25 }}></i>
-              </button>
-            </div>
+
+            {user.id === post.ownerId && (
+              <div class="col-md-4">
+                <button
+                  type="button"
+                  class=" btn btn-outline-success"
+                  onClick={handleEditPost}
+                >
+                  <i class="bi-pen-fill" style={{ fontSize: 25 }}></i>
+                </button>
+              </div>
+            )}
 
             {errorDelete && <p>{errorDelete}</p>}
             <div class="col-md-4">
@@ -101,7 +105,7 @@ export function BlogPost({ post, data, setData }) {
           </div>
         )}
 
-        {post.ownerId !== user.id && (
+        {!showEditDelete(post, user) && (
           <div className="row mx-auto mb-2 text-center">
             <div class="col">
               <button class="col-sm btn btn-primary" onClick={handlePostRepost}>

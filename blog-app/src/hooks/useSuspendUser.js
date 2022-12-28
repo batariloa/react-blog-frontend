@@ -1,24 +1,19 @@
 import { useAuthContext } from "./useAuthContext";
 import { useState } from "react";
-import { url } from "../global/variables";
 import axiosClient from "../http/axios";
-
-export const useEditPost = () => {
+import { url } from "../global/variables";
+export const useSuspendUser = () => {
+  const { user } = useAuthContext();
   const [error, setError] = useState();
   const [isLoading, setIsLoading] = useState(true);
 
-  const { user } = useAuthContext();
-
-  const editPost = async (id, title, text) => {
+  const suspend = async (username) => {
     setIsLoading(true);
     setError(null);
     await axiosClient
       .put(
-        url + "/post/" + id,
-        {
-          Title: title,
-          Text: text,
-        },
+        url + "/auth/ban/" + username,
+        {},
         {
           headers: {
             Authorization: `Bearer ` + user.token,
@@ -26,11 +21,11 @@ export const useEditPost = () => {
         }
       )
       .catch(() => {
-        setError("Please fill all required fields.");
+        setError("An error occured.");
       });
 
     setIsLoading(false);
   };
 
-  return { editPost, error, isLoading };
+  return { suspend, error, isLoading };
 };

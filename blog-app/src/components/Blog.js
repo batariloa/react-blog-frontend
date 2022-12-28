@@ -7,14 +7,30 @@ import { BlogPost } from "./BlogPost";
 import "./css/BlogPost.css";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { showBan } from "../util/showBan";
+import { useSuspendUser } from "../hooks/useSuspendUser";
 
 export function Blog() {
-  const { username } = useParams("");
+  const { user } = useAuthContext();
+  let { username } = useParams("");
+
+  if (!username) username = user.username;
 
   const navigate = useNavigate();
 
-  const { user } = useAuthContext();
+  const { suspend, error, isLoading } = useSuspendUser();
+
+  const showBanVal = showBan(user, username);
+
   const [data, setData] = useState(null);
+
+  const handleBanUser = async () => {
+    await suspend(username);
+  };
+
+  useEffect(() => {
+    if (!isLoading && error === null) navigate("/blog");
+  }, [error, isLoading, navigate]);
 
   useEffect(() => {
     let url = "http://localhost:5153/post/";
@@ -36,6 +52,7 @@ export function Blog() {
 
       if (!response.ok) {
         if (response.status === 401) navigate("/login");
+        if (response.status === 404) navigate("/404");
       }
     };
     if (user) callApi();
@@ -44,6 +61,37 @@ export function Blog() {
 
   return (
     <div className="blog-container">
+      {showBanVal && (
+        <div className="card bg-dark text-white d-inline-block  ">
+          <div
+            className="row   mx-auto d-flex my-auto"
+            style={{ alignItems: "center" }}
+          >
+            {" "}
+            <p className="col-lg pt-3">User {username}'s blog</p>
+            <button
+              onClick={handleBanUser}
+              style={{ width: "300px" }}
+              className="col-lg btn btn-danger mx-auto "
+            >
+              Ban
+            </button>
+          </div>
+        </div>
+      )}
+
+      {!showBanVal && (
+        <h2 className="text-white mt-5">User {username}'s blog</h2>
+      )}
+
+      {data && data.length === 0 && (
+        <div style={{ marginTop: "200px" }}>
+          <h5 className="text-white mt-2 text-center">
+            User does not have any posts.
+          </h5>
+        </div>
+      )}
+
       <div class="row row-cols-md-3 g-2 ">
         {data &&
           data.map((u) => (

@@ -9,6 +9,7 @@ import { useAuthContext } from "./hooks/useAuthContext";
 import { EditBlogPost } from "./components/EditBlogPost";
 import { DetailedBlogPost } from "./components/DetailedBlogPost";
 import { setupInterceptors } from "./http/axios";
+import { NotFound } from "./components/NotFound";
 
 function App() {
   const { user, dispatch } = useAuthContext();
@@ -29,6 +30,7 @@ function App() {
         <Route path="/edit" element={user ? <EditBlogPost /> : <Login />} />
         <Route path="/post" element={user ? <DetailedBlogPost /> : <Login />} />
         <Route path="/register" element={<Register />}></Route>
+        <Route path="/404" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );

@@ -15,7 +15,6 @@ export function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     await login(email, password);
   };
 
@@ -58,7 +57,7 @@ export function Login() {
         </div>
       </form>
       <div className="mt-2">
-        Don't have an account? <Link to="/logiin">Register</Link>
+        Don't have an account? <Link to="/login">Register</Link>
       </div>
       {error && <span className="error">{error}</span>}
     </div>

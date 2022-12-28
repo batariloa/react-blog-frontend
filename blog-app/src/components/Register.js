@@ -26,13 +26,8 @@ export function Register() {
     <div className="Auth-form-container">
       <form className="Auth-form" onSubmit={handleSubmit}>
         <div className="Auth-form-content">
-          <h3 className="Auth-form-title">Sign In</h3>
-          <div className="text-center">
-            Already registered?{" "}
-            <Link to="/login" className="link-primary">
-              Sign In
-            </Link>
-          </div>
+          <h3 className="Auth-form-title">Register</h3>
+
           <div className="form-group mt-3">
             <label>Firstname</label>
             <input
@@ -96,11 +91,17 @@ export function Register() {
             />
           </div>
           <div className="d-grid gap-2 mt-3">
-            <button className="btn btn-primary">SignUp</button>
+            <button className="btn btn-primary">Register</button>
           </div>
         </div>
         {error && <div className="error">{error}</div>}
       </form>
+      <div className="text-center mt-3">
+        Already registered?{" "}
+        <Link to="/login" className="link-primary">
+          Sign In
+        </Link>
+      </div>
     </div>
   );
 }

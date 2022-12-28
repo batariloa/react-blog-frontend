@@ -4,6 +4,7 @@ import { useCreatePost } from "../hooks/useCreatePost";
 import { createAndEditPostJsx } from "./jsx/createAndEditPost";
 import "./css/BlogPost.css";
 import "./css/CreateBlogPost.css";
+
 export function CreateBlogPost() {
   const { submitPost, error, isLoading } = useCreatePost();
 
@@ -13,6 +14,7 @@ export function CreateBlogPost() {
   const [text, setText] = useState("");
 
   const header = "New post";
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     await submitPost({ title, text });

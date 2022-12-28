@@ -6,6 +6,8 @@ import { InputSuggestions } from "react-input-suggestions";
 import { useNavigate } from "react-router-dom";
 
 import "./css/Navbar.css";
+import { url } from "../global/variables";
+import { isAdmin } from "../util/isAdmin";
 export function Navbar() {
   const { logout } = useLogout();
   const { user } = useAuthContext();
@@ -16,7 +18,7 @@ export function Navbar() {
 
   useEffect(() => {
     const fetchUsers = async () => {
-      const res = await fetch("http://localhost:5153/auth/search/" + query, {
+      const res = await fetch(url + "/auth/search/" + query, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -77,6 +79,16 @@ export function Navbar() {
                   Logout
                 </Link>
               </li>
+              {isAdmin(user) && (
+                <Link
+                  class="nav-link "
+                  style={{ color: "red" }}
+                  tabindex="-1"
+                  aria-disabled="true"
+                >
+                  Admin mode
+                </Link>
+              )}
             </ul>
           )}
 

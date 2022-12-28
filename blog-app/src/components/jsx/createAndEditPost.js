@@ -8,7 +8,7 @@ export const createAndEditPostJsx = (
   header
 ) => {
   return (
-    <div class="container w-50">
+    <div class="container w-50 text-white">
       <h2 className="mb-5">{header}</h2>
       <form onSubmit={handleSubmit}>
         <div class="form-row">
