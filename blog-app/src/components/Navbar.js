@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import "./css/Navbar.css";
 import { url } from "../global/variables";
 import { isAdmin } from "../util/isAdmin";
+import axiosClient from "../http/axios";
 export function Navbar() {
   const { logout } = useLogout();
   const { user } = useAuthContext();
@@ -16,27 +17,23 @@ export function Navbar() {
   const [query, setQuery] = useState("");
   const [searchData, setSearchData] = useState([]);
 
+  //search users
   useEffect(() => {
     const fetchUsers = async () => {
-      const res = await fetch(url + "/auth/search/" + query, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
+      await axiosClient.post(url + "/auth/search/" + query).then((response) => {
+        setSearchData(response.data.map((x) => x.username));
       });
-
-      const json = await res.json();
-
-      setSearchData(json.map((x) => x.username));
     };
 
     if (query !== "") fetchUsers();
   }, [query]);
 
+  //logout
   const handleLogoutClick = async () => {
     await logout();
   };
+
+  //jsx
   return (
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
       {" "}

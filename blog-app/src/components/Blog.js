@@ -9,6 +9,7 @@ import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { showBan } from "../util/showBan";
 import { useSuspendUser } from "../hooks/useSuspendUser";
+import { fetchData } from "../util/fetchBlogs";
 
 export function Blog() {
   const { user } = useAuthContext();
@@ -33,30 +34,7 @@ export function Blog() {
   }, [error, isLoading, navigate]);
 
   useEffect(() => {
-    let url = "http://localhost:5153/post/";
-    if (username) url = "http://localhost:5153/post/" + username;
-
-    const callApi = async () => {
-      const response = await fetch(url, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          Authorization: "Bearer " + user.token,
-        },
-      });
-
-      const data = await response.json();
-
-      if (response.ok) setData(data);
-
-      if (!response.ok) {
-        if (response.status === 401) navigate("/login");
-        if (response.status === 404) navigate("/404");
-      }
-    };
-    if (user) callApi();
-    else navigate("/login");
+    fetchData(user, username, setData, navigate);
   }, [user, username, navigate]);
 
   return (
