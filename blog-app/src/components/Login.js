@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useLogin } from "../hooks/useLogin";
 
@@ -9,12 +8,12 @@ export function Login() {
   const navigate = useNavigate();
   const { login, error, isLoading } = useLogin();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const emailRef = useRef();
+  const passwordRef = useRef();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await login(email, password);
+    await login(emailRef.current.value, passwordRef.current.value);
   };
 
   //handle error in login request
@@ -33,10 +32,7 @@ export function Login() {
               type="email"
               className="form-control mt-1"
               placeholder="Enter email"
-              onChange={(e) => {
-                setEmail(e.target.value);
-              }}
-              value={email}
+              ref={emailRef}
             />
           </div>
           <div className="form-group mt-3">
@@ -45,10 +41,7 @@ export function Login() {
               type="password"
               className="form-control mt-1"
               placeholder="Enter password"
-              onChange={(p) => {
-                setPassword(p.target.value);
-              }}
-              value={password}
+              ref={passwordRef}
             />
           </div>
           <div className="d-grid gap-2 mt-3">
