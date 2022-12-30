@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useMemo } from "react";
 import { useEditPost } from "../hooks/useEditPost";
 import { useNavigate } from "react-router-dom";
 import { createAndEditPostJsx } from "./jsx/createAndEditPost";
@@ -24,7 +24,7 @@ export function EditBlogPost() {
   };
 
   //handle error while submiting changes
-  useEffect(() => {
+  useMemo(() => {
     if (error === null && !isLoading) navigate("/blog");
   }, [error, isLoading, navigate]);
 
