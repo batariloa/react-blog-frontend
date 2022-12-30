@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useMemo, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useLogin } from "../hooks/useLogin";
 
@@ -6,7 +6,7 @@ import "./css/Login.css";
 
 export function Login() {
   const navigate = useNavigate();
-  const { login, error, isLoading } = useLogin();
+  const { login, error } = useLogin();
 
   const emailRef = useRef();
   const passwordRef = useRef();
@@ -17,9 +17,9 @@ export function Login() {
   };
 
   //handle error in login request
-  useEffect(() => {
+  useMemo(() => {
     if (error === null) navigate("/blog");
-  }, [error, isLoading, navigate]);
+  }, [error, navigate]);
 
   return (
     <div className="Auth-form-container">

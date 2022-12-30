@@ -12,7 +12,12 @@ import { useSuspendUser } from "../hooks/useSuspendUser";
 import { fetchBlog } from "../util/fetchBlogs";
 
 export function Blog() {
+  const [data, setData] = useState(null);
+
+  //get user from context
   const { user } = useAuthContext();
+
+  //get user from params (when viewing another user's blog)
   let { username } = useParams("");
 
   //if user views own blog, show username from Auth context
@@ -24,8 +29,6 @@ export function Blog() {
 
   //load value once
   const showBanVal = showBan(user, username);
-
-  const [data, setData] = useState(null);
 
   //click 'Ban' button
   const handleBanUser = async () => {
