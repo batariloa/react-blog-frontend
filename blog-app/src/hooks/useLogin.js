@@ -13,6 +13,8 @@ export const useLogin = () => {
     setIsLoading(true);
     setError(null);
 
+    console.log("CLIENT SENDING");
+
     await axiosClient
       .post(
         url + "/auth/login",

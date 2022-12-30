@@ -35,11 +35,11 @@ export function Navbar() {
 
   //jsx
   return (
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark ">
       {" "}
-      <div class="container-fluid">
+      <div className="container-fluid">
         <button
-          class="navbar-toggler"
+          className="navbar-toggler"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarTogglerDemo01"
@@ -47,29 +47,33 @@ export function Navbar() {
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <span class="navbar-toggler-icon"></span>
+          <span className="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+        <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
           <a href="/" className="navbar-brand">
             Blogster
           </a>
           {user && (
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <Link to="/new" class="nav-link " aria-current="page" href="#">
+            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+              <li key="newPost" className="nav-item">
+                <Link
+                  to="/new"
+                  className="nav-link "
+                  aria-current="page"
+                  href="#"
+                >
                   New Post
                 </Link>
               </li>
-              <li class="nav-item">
-                <Link to="/blog" class="nav-link" href="#">
+              <li key="myBlog" className="nav-item">
+                <Link to="/blog" className="nav-link" href="#">
                   My Blog
                 </Link>
               </li>
 
-              <li class="nav-item">
+              <li key="logout" className="nav-item">
                 <Link
-                  class="nav-link "
-                  tabindex="-1"
+                  className="nav-link "
                   aria-disabled="true"
                   onClick={handleLogoutClick}
                 >
@@ -78,9 +82,8 @@ export function Navbar() {
               </li>
               {isAdmin(user) && (
                 <Link
-                  class="nav-link "
+                  className="nav-link "
                   style={{ color: "red" }}
-                  tabindex="-1"
                   aria-disabled="true"
                 >
                   Admin mode
@@ -90,20 +93,20 @@ export function Navbar() {
           )}
 
           {!user && (
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <Link to="/register" class="nav-link " aria-current="page">
+            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+              <li key="register" className="nav-item">
+                <Link to="/register" className="nav-link " aria-current="page">
                   Register
                 </Link>
               </li>
-              <li class="nav-item">
-                <Link to="/login" class="nav-link" href="#">
+              <li key="login" className="nav-item">
+                <Link to="/login" className="nav-link" href="#">
                   Login
                 </Link>
               </li>
             </ul>
           )}
-          <form class="d-flex">
+          <form className="d-flex">
             <InputSuggestions
               className="form-control me-2 edit mt-1 mb-1"
               type="search"
@@ -116,7 +119,7 @@ export function Navbar() {
                 <span onClick={() => navigate("/blog/" + x)}>{x}</span>
               ))}
             />
-            <button class="btn btn-outline-success mt-1 mb-1" type="submit">
+            <button className="btn btn-outline-success mt-1 mb-1" type="submit">
               Search
             </button>
           </form>

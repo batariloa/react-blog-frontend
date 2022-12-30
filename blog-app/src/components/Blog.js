@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 
 import { useEffect } from "react";
 import { useAuthContext } from "../hooks/useAuthContext";
@@ -38,7 +38,7 @@ export function Blog() {
   }, [error, isLoading, navigate]);
 
   //check for error while fetching
-  useEffect(() => {
+  useMemo(() => {
     fetchBlog(user, username, setData, navigate);
   }, [user, username, navigate]);
 
@@ -69,16 +69,19 @@ export function Blog() {
 
       {data && data.length === 0 && (
         <div style={{ marginTop: "200px" }}>
-          <h5 className="text-white mt-2 text-center">
-            User does not have any posts.
-          </h5>
+          <h5>User does not have any posts.</h5>
         </div>
       )}
 
-      <div class="row row-cols-md-3 g-2 ">
+      <div className="row row-cols-md-3 g-2 ">
         {data &&
           data.map((u) => (
-            <BlogPost post={u} data={data} setData={setData}></BlogPost>
+            <BlogPost
+              key={u.id}
+              post={u}
+              data={data}
+              setData={setData}
+            ></BlogPost>
           ))}
       </div>
     </div>
