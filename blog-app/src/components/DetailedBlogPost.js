@@ -7,7 +7,6 @@ import "./css/DetailedBlogPost.css";
 
 export function DetailedBlogPost() {
   const { state } = useLocation();
-
   const { user } = useAuthContext();
   const { post } = state;
 
