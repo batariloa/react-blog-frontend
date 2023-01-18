@@ -41,7 +41,7 @@ export function BanButon(user, username) {
         </div>
       )}
 
-      {!showBanVal && (
+      {!showBanVal && username && (
         <h2 className="text-white mt-5">User {username}'s blog</h2>
       )}
     </div>

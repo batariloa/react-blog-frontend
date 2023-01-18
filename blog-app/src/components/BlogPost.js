@@ -40,12 +40,12 @@ export function BlogPost({ post, data, setData }) {
   }, [erroRepost, repostIsLoading]);
 
   return (
-    <div class="col-md">
-      <div class="post bg-dark  card h-100 text-white  ">
-        <div class="card-body ">
-          <h5 class="card-title">{displayTitle}</h5>
+    <div className="col-md">
+      <div className="post bg-dark  card h-100 text-white  ">
+        <div className="card-body ">
+          <h5 className="card-title">{displayTitle}</h5>
           <hr></hr>
-          <p class="card-text">
+          <p className="card-text">
             {displayText}{" "}
             {displayText.length >= 50 ? (
               <Link to={"/post"} state={{ post }}>
@@ -69,14 +69,14 @@ export function BlogPost({ post, data, setData }) {
 
         <div className="row mx-auto mb-2  justify-content-center ">
           {showDelete(post, user) && (
-            <div class="col-md-4">
+            <div className="col-md-4">
               <button
-                class="btn btn-outline-danger"
+                className="btn btn-outline-danger"
                 onClick={() => {
                   handleDeletePost(post.id);
                 }}
               >
-                <i class="col bi-trash-fill" style={{ fontSize: 25 }}></i>
+                <i className="col bi-trash-fill" style={{ fontSize: 25 }}></i>
               </button>
             </div>
           )}
@@ -84,24 +84,24 @@ export function BlogPost({ post, data, setData }) {
           {errorDelete && <p>{errorDelete}</p>}
 
           {showEdit(post, user) && (
-            <div class="col-md-4">
+            <div className="col-md-4">
               <button
                 type="button"
-                class=" btn btn-outline-success"
+                className=" btn btn-outline-success"
                 onClick={handleEditPost}
               >
-                <i class="bi-pen-fill" style={{ fontSize: 25 }}></i>
+                <i className="bi-pen-fill" style={{ fontSize: 25 }}></i>
               </button>
             </div>
           )}
 
           {errorDelete && <p>{errorDelete}</p>}
-          <div class="col-md-4">
+          <div className="col-md-4">
             <button
-              class="col-sm btn btn-outline-primary"
+              className="col-sm btn btn-outline-primary"
               onClick={handlePostRepost}
             >
-              <i class="bi-arrow-repeat" style={{ fontSize: 25 }}></i>
+              <i className="bi-arrow-repeat" style={{ fontSize: 25 }}></i>
             </button>
           </div>
         </div>

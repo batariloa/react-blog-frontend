@@ -6,7 +6,7 @@ export const useRegister = () => {
   const [error, setError] = useState();
   const [isLoading, setIsLoading] = useState();
 
-  const register = async (Firstname, Lastname, Username, Email, Password) => {
+  const register = async (firstname, lastname, username, email, password) => {
     setIsLoading(true);
     setError(null);
 
@@ -14,12 +14,12 @@ export const useRegister = () => {
       .post(
         url + "/auth/register",
         {
-          Firstname,
-          Lastname,
-          Username,
-          Email,
-          Password,
-          ConfirmPassword: Password,
+          firstname,
+          lastname,
+          username,
+          email,
+          password,
+          repeatPassword: password,
         },
         {
           headers: {

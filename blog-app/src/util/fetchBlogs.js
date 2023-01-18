@@ -1,9 +1,9 @@
 import { url } from "../global/variables";
 import axiosClient from "../http/axios";
 
-export const fetchBlog = (user, username, setData, navigate) => {
-  let urlFetch = url + "/post/";
-  if (username) urlFetch = url + "/post/" + username;
+export const fetchBlog = (user, usernameOrNull, setData, navigate) => {
+  let urlFetch = url + "/post";
+  if (usernameOrNull != null) urlFetch = url + "/post/" + usernameOrNull;
 
   const callApi = async () => {
     await axiosClient
@@ -13,6 +13,8 @@ export const fetchBlog = (user, username, setData, navigate) => {
         },
       })
       .then((response) => {
+        console.log("a pozvao sam", urlFetch);
+        console.log("Fetched data", response.data);
         setData(response.data);
       })
       .catch((e) => {

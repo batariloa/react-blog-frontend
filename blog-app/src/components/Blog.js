@@ -18,7 +18,7 @@ export function Blog() {
   let { username } = useParams("");
 
   //if user views own blog, show username from Auth context
-  if (!username) username = user.username;
+  if (!username) username = null;
 
   const navigate = useNavigate();
 
@@ -29,8 +29,6 @@ export function Blog() {
 
   return (
     <div className="blog-container">
-      <BanButon user={user} username={username}></BanButon>
-
       {data && data.length === 0 && (
         <div style={{ marginTop: "200px" }}>
           <h5>User does not have any posts.</h5>

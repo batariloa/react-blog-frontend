@@ -24,8 +24,8 @@ export const useCreatePost = () => {
       .post(
         url + "/post",
         {
-          Title: post.title,
-          Text: post.text,
+          title: post.title,
+          text: post.text,
         },
         {
           headers: {

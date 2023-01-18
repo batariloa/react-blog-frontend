@@ -9,18 +9,16 @@ export const useLogin = () => {
 
   const { dispatch } = useAuthContext();
 
-  const login = async (Email, Password) => {
+  const login = async (email, password) => {
     setIsLoading(true);
     setError(null);
-
-    console.log("CLIENT SENDING");
 
     await axiosClient
       .post(
         url + "/auth/login",
         {
-          Email,
-          Password,
+          email,
+          password,
         },
         {
           headers: {
