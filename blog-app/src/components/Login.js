@@ -18,7 +18,7 @@ export function Login() {
 
   //handle error in login request
   useMemo(() => {
-    if (error === null) navigate("/blog");
+    // if (error === null) navigate("/blog");
   }, [error, navigate]);
 
   return (

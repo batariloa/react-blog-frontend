@@ -28,13 +28,12 @@ export const useCreatePost = () => {
           text: post.text,
         },
         {
-          headers: {
-            Authorization: `Bearer ` + user.token,
-          },
+          headers: {},
+          withCredentials: true,
         }
       )
       .catch((error) => {
-        console.log("Caught error");
+        console.log("Caught error", error.response);
         setError("Please fill all fields.");
       });
 

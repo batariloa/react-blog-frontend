@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useEffect } from "react";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useState } from "react";
 import { BlogPost } from "./BlogPost";
@@ -23,7 +23,7 @@ export function Blog() {
   const navigate = useNavigate();
 
   //check for error while fetching
-  useMemo(() => {
+  useEffect(() => {
     fetchBlog(user, username, setData, navigate);
   }, [user, username, navigate]);
 

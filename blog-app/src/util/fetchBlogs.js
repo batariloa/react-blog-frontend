@@ -8,10 +8,10 @@ export const fetchBlog = (user, usernameOrNull, setData, navigate) => {
   const callApi = async () => {
     await axiosClient
       .get(urlFetch, {
-        headers: {
-          Authorization: "Bearer " + user.token,
-        },
+        headers: {},
+        withCredentials: true,
       })
+
       .then((response) => {
         console.log("a pozvao sam", urlFetch);
         console.log("Fetched data", response.data);
