@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useAuthContext } from "./useAuthContext";
 import axiosClient from "../http/axios";
 import { url } from "../global/variables";
@@ -8,13 +8,15 @@ export const useLogin = () => {
   const [isLoading, setIsLoading] = useState();
 
   const { dispatch } = useAuthContext();
+  const controllerRef = useRef(new AbortController());
 
   const login = async (email, password) => {
     setIsLoading(true);
     setError(null);
 
-    await axiosClient
-      .post(
+    await new Promise((resolve) => setTimeout(resolve, 3000));
+    try {
+      const res = await axiosClient.post(
         url + "/auth/login",
         {
           email,
@@ -26,18 +28,26 @@ export const useLogin = () => {
             Accept: "application/json",
           },
           withCredentials: true,
+          signal: controllerRef.current.signal,
         }
-      )
-      .then((res) => {
-        dispatch({ type: "LOGIN", payload: res.data });
-        localStorage.setItem("user", JSON.stringify(res.data));
-      })
-      .catch((err) => {
+      );
+      dispatch({ type: "LOGIN", payload: res.data });
+      localStorage.setItem("user", JSON.stringify(res.data));
+    } catch (err) {
+      if (err.name === "CanceledError") {
+        console.log("Canceled login.");
+      } else {
+        console.log("some other error", err);
         setError("Incorrect credentials.");
-      });
-
-    setIsLoading(false);
+      }
+    }
   };
 
-  return { login, error, isLoading };
+  useEffect(() => {
+    return () => {
+      controllerRef.current.abort();
+    };
+  }, []);
+
+  return { login, error, isLoading, isLoading };
 };

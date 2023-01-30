@@ -9,7 +9,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.2.1",
     "bootstrap": "^5.2.3",
-    "bootstrap-icons": "^1.10.2",
+    "bootstrap-icons": "^1.10.3",
     "font-awesome": "^4.7.0",
     "react": "^18.2.0",
     "react-autocomplete-input": "^1.0.19",
@@ -18,7 +18,7 @@
     "react-input-autocomplete": "^1.0.0",
     "react-input-suggestions": "^2.2.0",
     "react-router-dom": "^6.5.0",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^5.0.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
