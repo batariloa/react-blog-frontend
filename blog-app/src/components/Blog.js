@@ -7,9 +7,11 @@ import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { fetchBlog } from "../util/fetchBlogs";
 import { BanButon } from "./BanButton";
+import { nanoid } from "nanoid";
 
 export function Blog() {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState();
+  const [processedData, setProcessedData] = useState();
 
   //get user from context
   const { user } = useAuthContext();
@@ -21,6 +23,16 @@ export function Blog() {
   if (!username) username = null;
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!data) return;
+    const blogPostsWithId = data.posts.map((post) => ({
+      ...post,
+      uniqueId: nanoid(),
+    }));
+
+    setProcessedData(blogPostsWithId);
+  }, [data]);
 
   //check for error while fetching
   useEffect(() => {
@@ -36,12 +48,12 @@ export function Blog() {
       )}
 
       <div className="row row-cols-md-3 g-2 ">
-        {data &&
-          data.map((u) => (
+        {processedData &&
+          processedData.map((u) => (
             <BlogPost
-              key={u.id}
+              key={u.uniqueId}
               post={u}
-              data={data}
+              data={processedData}
               setData={setData}
             ></BlogPost>
           ))}

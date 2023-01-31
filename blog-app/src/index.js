@@ -4,7 +4,7 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { AuthContextProvider } from "./context/AuthContext";
-
+import { ErrorBoundary } from "./error/ErrorBoundary";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "font-awesome/css/font-awesome.min.css";
@@ -13,11 +13,11 @@ import "react-autocomplete-input/dist/bundle.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <AuthContextProvider>
+  <AuthContextProvider>
+    <ErrorBoundary>
       <App />
-    </AuthContextProvider>
-  </React.StrictMode>
+    </ErrorBoundary>
+  </AuthContextProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

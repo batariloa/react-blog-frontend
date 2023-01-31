@@ -14,9 +14,13 @@ export function BlogPost({ post, data, setData }) {
 
   const navigate = useNavigate();
 
-  const displayTitle = post.title.slice(0, 40);
+  const displayTitle = () => {
+    if (post.title) return post.title.slice(0, 40);
+  };
 
-  let displayText = post.text.slice(0, 150);
+  let displayText = () => {
+    if (post.text) return post.text.slice(0, 150);
+  };
 
   const handleDeletePost = async () => {
     if (window.confirm("Delete post?")) {
