@@ -13,11 +13,13 @@ import "react-autocomplete-input/dist/bundle.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <AuthContextProvider>
-    <ErrorBoundary>
-      <App />
-    </ErrorBoundary>
-  </AuthContextProvider>
+  <React.StrictMode>
+    <AuthContextProvider>
+      <ErrorBoundary>
+        <App />
+      </ErrorBoundary>
+    </AuthContextProvider>
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

@@ -10,7 +10,12 @@ export const useLogin = () => {
   const { dispatch } = useAuthContext();
   const abortController = useRef(new AbortController());
 
+  const effectRan = useRef(false);
+
   const login = async (email, password) => {
+    //React v18+ strict mode calls useEffect twice
+    if (effectRan.current === false) return;
+
     setIsLoading(true);
     setError(null);
 
@@ -44,11 +49,12 @@ export const useLogin = () => {
   };
 
   useEffect(() => {
+    effectRan.current = true;
     const controller = abortController.current;
     return () => {
       controller.abort();
     };
   }, []);
 
-  return { login, error, isLoading, isLoading };
+  return { login, error, isLoading };
 };
