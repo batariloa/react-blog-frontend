@@ -8,7 +8,7 @@ export const useLogin = () => {
   const [isLoading, setIsLoading] = useState();
 
   const { dispatch } = useAuthContext();
-  const abortController = new AbortController();
+  const abortController = useRef(new AbortController());
 
   const login = async (email, password) => {
     setIsLoading(true);
@@ -28,7 +28,7 @@ export const useLogin = () => {
             Accept: "application/json",
           },
           withCredentials: true,
-          signal: abortController.signal,
+          signal: abortController.current.signal,
         }
       );
       dispatch({ type: "LOGIN", payload: res.data });
@@ -44,10 +44,11 @@ export const useLogin = () => {
   };
 
   useEffect(() => {
+    const controller = abortController.current;
     return () => {
-      abortController.abort();
+      controller.abort();
     };
-  }, [url]);
+  }, []);
 
   return { login, error, isLoading, isLoading };
 };
