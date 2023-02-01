@@ -10,7 +10,7 @@ export const setupInterceptors = (dispatch, navigate) => {
       return response;
     },
     function (error) {
-      if (error.response.status === 401) {
+      if (error.response && error.response.status === 401) {
         if (!isAlready401) {
           isAlready401 = true;
           originalRequest = error.config;
@@ -28,8 +28,8 @@ export const setupInterceptors = (dispatch, navigate) => {
               dispatch({ type: "LOGOUT" });
             });
         }
-        return Promise.reject(error);
       }
+      return Promise.reject(error);
     }
   );
 };

@@ -5,7 +5,7 @@ import { BlogPost } from "./BlogPost";
 import "./css/BlogPost.css";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { fetchBlog } from "../util/fetchBlogs";
+import { useFetchBlog } from "../hooks/useFetchBlogs";
 import { BanButon } from "./BanButton";
 import { nanoid } from "nanoid";
 
@@ -24,8 +24,11 @@ export function Blog() {
 
   const navigate = useNavigate();
 
+  useFetchBlog(user, username, setData, navigate);
+
   useEffect(() => {
     if (!data) return;
+    if (!data.posts) return;
     const blogPostsWithId = data.posts.map((post) => ({
       ...post,
       uniqueId: nanoid(),
@@ -35,9 +38,6 @@ export function Blog() {
   }, [data]);
 
   //check for error while fetching
-  useEffect(() => {
-    fetchBlog(user, username, setData, navigate);
-  }, [user, username, navigate]);
 
   return (
     <div className="blog-container">

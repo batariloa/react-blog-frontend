@@ -1,15 +1,18 @@
 import { url } from "../global/variables";
 import axiosClient from "../http/axios";
+import { useEffect, useRef } from "react";
 
-export const fetchBlog = (user, usernameOrNull, setData, navigate) => {
+export const useFetchBlog = (user, usernameOrNull, setData, navigate) => {
   let urlFetch = url + "/post";
   if (usernameOrNull != null) urlFetch = url + "/post/" + usernameOrNull;
 
+  const controller = useRef(new AbortController());
   const callApi = async () => {
     await axiosClient
       .get(urlFetch, {
         headers: {},
         withCredentials: true,
+        signal: controller.current.signal,
       })
 
       .then((response) => {
@@ -18,11 +21,22 @@ export const fetchBlog = (user, usernameOrNull, setData, navigate) => {
         setData(response.data);
       })
       .catch((e) => {
-        if (e.response.status === 404) {
+        if (e.name === "CanceledError") {
+          console.log("Canceled fetch");
+        } else if (e.reponse.status && e.response.status === 404) {
           navigate("/404");
         }
       });
   };
-  if (user) callApi();
-  else navigate("/login");
+
+  useEffect(() => {
+    controller.current = new AbortController();
+    if (user) {
+      callApi();
+    } else navigate("/login");
+
+    return () => {
+      controller.current.abort();
+    };
+  }, []);
 };

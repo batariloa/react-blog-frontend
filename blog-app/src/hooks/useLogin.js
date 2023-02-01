@@ -10,13 +10,7 @@ export const useLogin = () => {
   const { dispatch } = useAuthContext();
   const abortController = useRef(new AbortController());
 
-  const effectRan = useRef(false);
-
   const login = async (email, password) => {
-    console.log("login ran");
-    //React v18+ strict mode calls useEffect twice
-    if (effectRan.current === false) return;
-
     setIsLoading(true);
     setError(null);
 
@@ -51,9 +45,6 @@ export const useLogin = () => {
 
   useEffect(() => {
     abortController.current = new AbortController();
-
-    console.log("Component mounted so effect ran is", effectRan.current);
-    effectRan.current = true;
 
     return () => {
       abortController.current.abort();

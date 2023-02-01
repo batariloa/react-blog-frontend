@@ -1,5 +1,5 @@
 import { useAuthContext } from "./useAuthContext";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { url } from "../global/variables";
 import axiosClient from "../http/axios";
 import { useNavigate } from "react-router-dom";
@@ -10,6 +10,8 @@ export const useCreatePost = () => {
 
   const { user } = useAuthContext();
   const navigate = useNavigate();
+
+  const controllerRef = useRef(new AbortController());
 
   const submitPost = async (post) => {
     setIsLoading(true);
@@ -30,15 +32,31 @@ export const useCreatePost = () => {
         {
           headers: {},
           withCredentials: true,
+          signal: controllerRef.current.signal,
         }
       )
+      .then((heh) => {
+        console.log("THEN");
+      })
       .catch((error) => {
-        console.log("Caught error", error.response);
-        setError("Please fill all fields.");
+        if (error === "CanceledError") {
+          console.log("Aborted create post.");
+        } else if (error.response) {
+          console.log("Caught error", error.response.status);
+          setError("Please fill all fields.");
+        } else {
+          setError("An error occured.");
+        }
       });
 
     setIsLoading(false);
   };
 
+  useEffect(() => {
+    controllerRef.current = new AbortController();
+    return () => {
+      controllerRef.current.abort();
+    };
+  }, []);
   return { submitPost, error, isLoading };
 };
