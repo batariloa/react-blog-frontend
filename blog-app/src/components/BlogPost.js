@@ -13,14 +13,21 @@ export function BlogPost({ post, data, setData }) {
   const { repost, error: erroRepost, isLoading: repostIsLoading } = useRepost();
 
   const navigate = useNavigate();
+  
+  const displayTitle =()=>{
 
-  const displayTitle = () => {
-    if (post.title) return post.title.slice(0, 40);
-  };
+    if(post.title) return post.title.slice(0, 40);
+    
+    return ""
+  } 
 
-  let displayText = () => {
-    if (post.text) return post.text.slice(0, 150);
-  };
+  const displayText= ()=>{
+
+    if(post.text) return post.text.slice(0, 150);
+
+    return ""
+  }
+
 
   const handleDeletePost = async () => {
     if (window.confirm("Delete post?")) {
@@ -39,6 +46,7 @@ export function BlogPost({ post, data, setData }) {
     navigate("/edit", { state: { post } });
   };
 
+  console.log("POSRT DATA", post)
   useEffect(() => {
     if (erroRepost !== null) alert("An error occured.");
   }, [erroRepost, repostIsLoading]);
@@ -47,11 +55,11 @@ export function BlogPost({ post, data, setData }) {
     <div className="col-md">
       <div className="post bg-dark  card h-100 text-white  ">
         <div className="card-body ">
-          <h5 className="card-title">{displayTitle}</h5>
+          <h5 className="card-title">{displayTitle()}</h5>
           <hr></hr>
           <p className="card-text">
-            {displayText}{" "}
-            {displayText.length >= 50 ? (
+            {displayText()}{" "}
+            {displayText().length >= 50 ? (
               <Link to={"/post"} state={{ post }}>
                 {" "}
                 ...view more
