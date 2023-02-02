@@ -13,21 +13,18 @@ export function BlogPost({ post, data, setData }) {
   const { repost, error: erroRepost, isLoading: repostIsLoading } = useRepost();
 
   const navigate = useNavigate();
-  
-  const displayTitle =()=>{
 
-    if(post.title) return post.title.slice(0, 40);
-    
-    return ""
-  } 
+  const displayTitle = () => {
+    if (post.title) return post.title.slice(0, 40);
 
-  const displayText= ()=>{
+    return "No title";
+  };
 
-    if(post.text) return post.text.slice(0, 150);
+  const displayText = () => {
+    if (post.text) return post.text.slice(0, 150);
 
-    return ""
-  }
-
+    return "No text";
+  };
 
   const handleDeletePost = async () => {
     if (window.confirm("Delete post?")) {
@@ -46,7 +43,7 @@ export function BlogPost({ post, data, setData }) {
     navigate("/edit", { state: { post } });
   };
 
-  console.log("POSRT DATA", post)
+  console.log("POSRT DATA", post);
   useEffect(() => {
     if (erroRepost !== null) alert("An error occured.");
   }, [erroRepost, repostIsLoading]);
