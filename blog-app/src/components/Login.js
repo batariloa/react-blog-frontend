@@ -6,11 +6,15 @@ import "./css/Login.css";
 
 export function Login() {
   const navigate = useNavigate();
-  const [handleLogin, isLoading, error] = useLogin();
+  const { login, error } = useLogin();
 
   const emailRef = useRef();
   const passwordRef = useRef();
-  
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await login(emailRef.current.value, passwordRef.current.value);
+  };
 
   //handle error in login request
   useEffect(() => {
@@ -22,7 +26,7 @@ export function Login() {
 
   return (
     <div className="Auth-form-container">
-      <form className="Auth-form" onSubmit={handleLogin} autoComplete="on">
+      <form className="Auth-form" onSubmit={handleSubmit} autoComplete="on">
         <div className="Auth-form-content">
           <h3 className="Auth-form-title">Sign In</h3>
           <div className="form-group mt-3">
