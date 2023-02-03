@@ -14,8 +14,10 @@ export const useLogin = () => {
     setIsLoading(true);
     setError(null);
 
+    //update abort controller refference
     abortController.current = new AbortController();
 
+    //used to test login cancelation
     await new Promise((resolve) => setTimeout(resolve, 1000));
     try {
       const res = await axiosClient.post(
