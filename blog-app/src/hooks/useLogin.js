@@ -3,11 +3,10 @@ import { useAuthContext } from "./useAuthContext";
 import axiosClient from "../http/axios";
 import { url } from "../global/variables";
 
-export const useLogin = () => {
+export const useLogin = (dispatch) => {
   const [error, setError] = useState();
   const [isLoading, setIsLoading] = useState();
 
-  const { dispatch } = useAuthContext();
   const abortController = useRef(new AbortController());
 
   const login = async (email, password) => {
@@ -35,9 +34,11 @@ export const useLogin = () => {
           signal: abortController.current.signal,
         }
       );
+      console.log("SOME DATAAA");
       dispatch({ type: "LOGIN", payload: res.data });
       localStorage.setItem("user", JSON.stringify(res.data));
     } catch (err) {
+      console.log("NO DATTAAA");
       if (err.name === "CanceledError") {
         console.log("Canceled login.");
       } else {

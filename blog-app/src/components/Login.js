@@ -1,12 +1,14 @@
 import React, { useEffect, useMemo, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useAuthContext } from "../hooks/useAuthContext";
 import { useLogin } from "../hooks/useLogin";
 
 import "./css/Login.css";
 
 export function Login() {
+  const { dispatch } = useAuthContext();
   const navigate = useNavigate();
-  const { login, error } = useLogin();
+  const { login, error } = useLogin(dispatch);
 
   const emailRef = useRef();
   const passwordRef = useRef();

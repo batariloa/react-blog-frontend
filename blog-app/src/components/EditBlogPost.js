@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { createAndEditPostJsx } from "./jsx/createAndEditPost";
 import { useLocation } from "react-router-dom";
 import "./css/BlogPost.css";
-import "./css/CreateBlogPost.css";
+import "./css/DetailedBlogPost.css";
 
 export function EditBlogPost() {
   const { editPost, error, isLoading } = useEditPost();
