@@ -1,8 +1,6 @@
-import { useAuthContext } from "./useAuthContext";
 import { useState, useRef, useEffect } from "react";
 import { url } from "../global/variables";
 import axiosClient from "../http/axios";
-import { useNavigate } from "react-router-dom";
 
 export const useCreatePost = () => {
   const [error, setError] = useState();

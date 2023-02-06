@@ -101,24 +101,4 @@ describe("useLogin", () => {
     });
     expect(result.current.error).not.toBe(null);
   });
-
-  it("sets error to 'Please fill all fiels.' when empty strings are passed as parameters", async () => {
-    const { result } = renderHook(() => useRegister(), { contextWrapper });
-    const { register } = result.current;
-
-    axiosClient.post = jest.fn(() => Promise.reject({ data: {} }));
-
-    expect(result.current.error).toBe(undefined);
-
-    await act(async () => {
-      await register(
-        registerData.firstname,
-        registerData.lastname,
-        registerData.username,
-        registerData.email,
-        registerData.password
-      );
-    });
-    expect(result.current.error).not.toBe(null);
-  });
 });
