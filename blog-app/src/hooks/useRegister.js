@@ -4,7 +4,7 @@ import { url } from "../global/variables";
 
 export const useRegister = () => {
   const [error, setError] = useState();
-  const [isLoading, setIsLoading] = useState();
+  const [isLoading, setIsLoading] = useState(false);
 
   const register = async (firstname, lastname, username, email, password) => {
     setIsLoading(true);
@@ -29,8 +29,12 @@ export const useRegister = () => {
         }
       )
       .catch((err) => {
-        if (err.response.data.title) setError(err.response.data.title);
-        else if (err.response.data) setError(err.response.data);
+        if (err.name === "CanceledError") {
+          console.log("Canceled login.");
+        } else {
+          console.log("some other error", err);
+          setError("Incorrect credentials.");
+        }
       });
 
     setIsLoading(false);

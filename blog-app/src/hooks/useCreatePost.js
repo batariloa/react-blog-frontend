@@ -6,10 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 export const useCreatePost = () => {
   const [error, setError] = useState();
-  const [isLoading, setIsLoading] = useState();
-
-  const { user } = useAuthContext();
-  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
 
   const controllerRef = useRef(new AbortController());
 
@@ -17,10 +14,14 @@ export const useCreatePost = () => {
     setIsLoading(true);
     setError(null);
 
-    if (!user) {
-      navigate("/login");
+    //create post form fields are not filled
+    if (post.text.length === 0 || post.title.length === 0) {
+      setError("Please fill all fields.");
       return;
     }
+
+    //refresh controller reference
+    controllerRef.current = new AbortController();
 
     await axiosClient
       .post(
@@ -39,7 +40,7 @@ export const useCreatePost = () => {
         console.log("THEN");
       })
       .catch((error) => {
-        if (error === "CanceledError") {
+        if (error.name === "CanceledError") {
           console.log("Aborted create post.");
         } else if (error.response) {
           console.log("Caught error", error.response.status);
@@ -53,7 +54,6 @@ export const useCreatePost = () => {
   };
 
   useEffect(() => {
-    controllerRef.current = new AbortController();
     return () => {
       controllerRef.current.abort();
     };

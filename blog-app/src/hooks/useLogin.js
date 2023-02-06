@@ -1,11 +1,10 @@
 import { useState, useEffect, useRef } from "react";
-import { useAuthContext } from "./useAuthContext";
 import axiosClient from "../http/axios";
 import { url } from "../global/variables";
 
 export const useLogin = (dispatch) => {
   const [error, setError] = useState();
-  const [isLoading, setIsLoading] = useState();
+  const [isLoading, setIsLoading] = useState(false);
 
   const abortController = useRef(new AbortController());
 
@@ -34,17 +33,17 @@ export const useLogin = (dispatch) => {
           signal: abortController.current.signal,
         }
       );
-      console.log("SOME DATAAA");
       dispatch({ type: "LOGIN", payload: res.data });
       localStorage.setItem("user", JSON.stringify(res.data));
     } catch (err) {
-      console.log("NO DATTAAA");
       if (err.name === "CanceledError") {
         console.log("Canceled login.");
       } else {
         console.log("some other error", err);
         setError("Incorrect credentials.");
       }
+    } finally {
+      setIsLoading(false);
     }
   };
 

@@ -43,7 +43,6 @@ export function BlogPost({ post, data, setData }) {
     navigate("/edit", { state: { post } });
   };
 
-  console.log("POSRT DATA", post);
   useEffect(() => {
     if (erroRepost !== null) alert("An error occured.");
   }, [erroRepost, repostIsLoading]);

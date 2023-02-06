@@ -37,7 +37,8 @@
     "moduleFileExtensions": [
       "js",
       "jsx"
-    ]
+    ],
+    "modulePathIgnorePatterns":["./__tests__/constants"]
   },
   "eslintConfig": {
     "extends": [

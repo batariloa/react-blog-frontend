@@ -17,6 +17,7 @@ export function CreateBlogPost() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     await submitPost({ title, text });
   };
 
