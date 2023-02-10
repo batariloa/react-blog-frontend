@@ -1,1 +1,1 @@
-exports.url = "https://blogster-api.herokuapp.com/";
+exports.url = "https://blogster-api.herokuapp.com";
