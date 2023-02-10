@@ -1,1 +1,1 @@
-exports.url = "http://localhost:8081";
+exports.url = "https://blogster-api.herokuapp.com/";
