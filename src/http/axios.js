@@ -1,6 +1,9 @@
 import axios from "axios";
 import { url } from "../global/variables";
-const axiosClient = axios.create({ baseURL: url, withCredentials: true });
+const axiosClient = axios.create({
+  baseURL: "https://blogster-frontend.herokuapp.com/",
+  withCredentials: true,
+});
 
 export const setupInterceptors = (dispatch, navigate) => {
   axiosClient.interceptors.response.use(
